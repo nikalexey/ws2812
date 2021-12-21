@@ -6,14 +6,14 @@ boolean safeDelay(uint64_t delTime) {
   uint64_t thisTime = millis();
 
   while (millis() - thisTime <= delTime) {
-    if (but1.isPress()) {
+    if (but1.isClick()) {
       if (++ledMode > ledModeMox) {
         ledMode = 0;
       };
       change_mode(ledMode);
       return true;
     }
-    if (but2.isPress()) {
+    if (but2.isClick()) {
       if (--ledMode > ledModeMox) {
         ledMode = ledModeMox;
       };
