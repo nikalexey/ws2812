@@ -2,7 +2,9 @@
 #include "utility.h"
 
 boolean safeDelay(uint64_t delTime) {
+  static uint64_t lastChangeBright = millis();
   uint64_t thisTime = millis();
+
   while (millis() - thisTime <= delTime) {
     if (but1.isPress()) {
       if (++ledMode > ledModeMox) {
@@ -18,6 +20,21 @@ boolean safeDelay(uint64_t delTime) {
       change_mode(ledMode);
       return true;
     }
+    if (but1.isHold() && millis() - lastChangeBright > 50) {
+      lastChangeBright = millis();
+      if (++bright > 255) {
+        bright = 255;
+      };
+      LEDS.setBrightness(bright);
+    }
+    if (but2.isHold() && millis() - lastChangeBright > 50) {
+      lastChangeBright = millis();
+      if (--bright <= 0) {
+        bright =1;
+      };
+      LEDS.setBrightness(bright);
+    }
+
   }
   return false;
 }

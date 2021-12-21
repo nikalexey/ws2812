@@ -23,7 +23,7 @@
 #define LED_COUNT 64
 #define LED_DT 2
 
-int max_bright = 128;
+int bright = 128;
 
 GButton but1(4);
 GButton but2(6);
@@ -219,7 +219,7 @@ void setup() {
   but1.setTickMode(true);
   but2.setTickMode(true);
 
-  LEDS.setBrightness(max_bright);
+  LEDS.setBrightness(bright);
   LEDS.addLeds<WS2811, LED_DT, GRB>(leds, LED_COUNT);
   one_color_all(0, 255, 0);
   LEDS.show();
@@ -230,6 +230,8 @@ void setup() {
 void loop() {
   but1.tick();
   but2.tick();
+  LEDS.setBrightness(bright);
+
   switch (ledMode) {
     case 0:
       rainbow_fade();
